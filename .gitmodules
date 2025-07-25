@@ -1,0 +1,6 @@
+[submodule "php-fpm/privacy-annotation-backend"]
+	path = php-fpm/privacy-annotation-backend
+	url = git@github_kuznetsovmd:kuznetsovmd/pp-annotation-backend.git
+[submodule "nginx/privacy-annotation-frontend"]
+	path = nginx/privacy-annotation-frontend
+	url = git@github_kuznetsovmd:kuznetsovmd/pp-annotation-frontend.git

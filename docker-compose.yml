@@ -1,0 +1,72 @@
+version: '3'
+services:
+
+  # Nginx Service
+  webserver:
+    image: test:nginx
+    container_name: webserver
+    build:
+      context: ./nginx
+    tty: true
+    volumes:
+      - ./nginx/privacy-annotation-frontend:/var/www/html
+    ports:
+      - "80:80"
+      - "8080:8080"
+      - "443:443"
+    networks:
+      - app_network
+
+  # NPM
+  npm:
+    image: test:npm
+    container_name: npm
+    build:
+      context: ./npm
+    tty: true
+    environment: 
+      - NODE_OPTIONS=--openssl-legacy-provider
+    volumes_from:
+      - webserver
+
+  # MySQL Service
+  db:
+    image: test:mariadb
+    container_name: db
+    build:
+      context: ./mariadb
+    tty: true
+    volumes:
+      - ./mariadb-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+    networks:
+      - app_network
+
+  # PHP Service
+  app:
+    image: test:app
+    container_name: app
+    build:
+      context: ./php-fpm
+    tty: true
+    volumes:
+      - ./php-fpm-data:/var/www/html/resources
+      - ./php-fpm/privacy-annotation-backend:/var/www/html
+    networks:
+      - app_network
+
+  # Composer
+  composer:
+    image: test:composer
+    container_name: composer
+    build:
+      context: ./composer
+    tty: true
+    volumes_from:
+      - app
+
+# Docker Networks
+networks:
+  app_network:
+    driver: bridge
