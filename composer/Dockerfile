@@ -2,4 +2,4 @@ FROM composer:latest
 
 WORKDIR /var/www/html
 
-CMD composer install
+CMD ["sh", "-c", "composer install --no-interaction --no-ansi"]

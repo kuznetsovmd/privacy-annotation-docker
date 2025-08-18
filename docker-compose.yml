@@ -1,4 +1,3 @@
-version: '3'
 services:
 
   # Nginx Service
@@ -7,7 +6,6 @@ services:
     container_name: webserver
     build:
       context: ./nginx
-    tty: true
     volumes:
       - ./nginx/privacy-annotation-frontend:/var/www/html
     ports:
@@ -23,7 +21,6 @@ services:
     container_name: npm
     build:
       context: ./npm
-    tty: true
     environment: 
       - NODE_OPTIONS=--openssl-legacy-provider
     volumes_from:
@@ -35,7 +32,6 @@ services:
     container_name: db
     build:
       context: ./mariadb
-    tty: true
     volumes:
       - ./mariadb-data:/var/lib/mysql
     environment:
@@ -49,7 +45,6 @@ services:
     container_name: app
     build:
       context: ./php-fpm
-    tty: true
     volumes:
       - ./php-fpm-data:/var/www/html/resources
       - ./php-fpm/privacy-annotation-backend:/var/www/html

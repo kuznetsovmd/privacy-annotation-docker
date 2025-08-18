@@ -2,4 +2,4 @@ FROM node:alpine
 
 WORKDIR /var/www/html
 
-CMD npm install && npm run watch
+CMD ["sh", "-c", "npm install && npm run watch"]

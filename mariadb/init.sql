@@ -58,10 +58,10 @@ CREATE TABLE `selections` (
     `selection_class`   VARCHAR(255) NOT NULL,
     `selection_content` MEDIUMTEXT,
     `user_id`           INT,
-    `policy_hash`       VARCHAR(255) DEFAULT NULL,
+    `hash`              VARCHAR(255) DEFAULT NULL,
     `created_at`        DATETIME DEFAULT NOW(),
     FOREIGN KEY (`user_id`)     REFERENCES `users`(`id`),
-    FOREIGN KEY (`policy_hash`) REFERENCES `policies`(`hash`)
+    FOREIGN KEY (`hash`)        REFERENCES `policies`(`hash`)
 );
 
 -- Seeds --
